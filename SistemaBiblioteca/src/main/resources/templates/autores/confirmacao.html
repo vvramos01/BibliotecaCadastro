@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Autor cadastrado</title>
+</head>
+<body>
+<h1>Autor cadastrado!</h1>
+
+<p>Nome: <span th:text="${autor.nome}"></span></p>
+<p>Nacionalidade: <span th:text="${autor.nacionalidade}"></span></p>
+
+<a th:href="@{/autores/novo}">Cadastrar outro autor</a>
+</body>
+</html>
