@@ -1,8 +1,8 @@
-# Sistema de Cadastro de Acervo - Biblioteca
+# Sistema de Cadastro de Autores - Biblioteca
 
-Uma aplicação web robusta para cadastro e gestão de livros, desenvolvida em Java com Spring Boot e Thymeleaf, utilizando a arquitetura MVC (Model-View-Controller).
+Uma aplicação web desenvolvida em Java com Spring Boot e Thymeleaf para o cadastro de autores no sistema de biblioteca, utilizando o padrão arquitetural MVC (Model-View-Controller).
 
-Este projeto foi desenvolvido como parte prática dos conceitos de desenvolvimento web Server-Side Rendering (SSR), cobrindo requisições HTTP (GET e POST), binding de formulários com @ModelAttribute, e manipulação dinâmica de templates HTML.
+Este projeto exemplifica o fluxo de recepção de dados via requisições HTTP (GET e POST), vinculação de formulários Thymeleaf (th:object e th:field) e mapeamento para objetos Java no backend com @ModelAttribute.
 
 # Tecnologias Utilizadas
 
@@ -12,65 +12,70 @@ Spring Boot 3.x
 
 Spring Web (Estrutura MVC)
 
-Spring Boot DevTools (Agilidade no desenvolvimento)
+Thymeleaf (Motor de templates HTML)
 
-Thymeleaf (Engine de templates HTML)
+Maven (Gerenciador de dependências e build)
 
-HTML5 & CSS3 (Interface responsiva e estilizada)
+# Funcionalidades e Rotas
 
-Maven (Gerenciamento de dependências e build)
+Formulário de Cadastro (GET /autores/novo):
 
-# Funcionalidades
+Carrega a view autores/form.html.
 
-Formulário de Cadastro (GET /livros/novo):
+Instancia e envia um objeto Autor vazio para binding do formulário.
 
-Exibição do formulário integrado a um objeto Livro vazio via th:object.
+Processamento do Formulário (POST /autores):
 
-Mapeamento dinâmico de campos com th:field (titulo, autor, isbn, anoPublicacao, editora, genero).
+Recebe os dados digitados pelo usuário via @ModelAttribute Autor autor.
 
-Processamento de Dados (POST /livros/cadastrar):
-
-Recebimento e associação automática dos dados do formulário via @ModelAttribute.
+Encaminha o objeto preenchido para a página de confirmação (autores/confirmacao.html).
 
 Página de Confirmação:
 
-Exibição clara e estilizada das informações recebidas e processadas pelo servidor.
+Exibe dinamicamente os dados do autor recém-cadastrado na interface com Thymeleaf (th:text).
 
-# Estrutura do Projeto
+# Estrutura do Repositório
 
 BibliotecaCadastro/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── br/com/biblioteca/app/
-│   │   │       ├── BibliotecaApplication.java
-│   │   │       ├── controller/
-│   │   │       │   └── LivroController.java
-│   │   │       └── model/
-│   │   │           └── Livro.java
-│   │   └── resources/
-│   │       ├── application.properties
-│   │       └── templates/
-│   │           └── livros/
-│   │               ├── formulario-cadastro.html
-│   │               └── confirmacao-cadastro.html
-│   └── test/
-│       └── java/
-│           └── br/com/biblioteca/app/
-│               └── BibliotecaApplicationTests.java
-├── pom.xml
-└── README.md
+├── README.md
+└── SistemaBiblioteca/
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   │   └── br/com/biblioteca/biblioteca/
+    │   │   │       ├── BibliotecaApplication.java
+    │   │   │       ├── controller/
+    │   │   │       │   └── AutorController.java
+    │   │   │       └── model/
+    │   │   │           └── Autor.java
+    │   │   └── resources/
+    │   │       ├── application.properties
+    │   │       └── templates/
+    │   │           └── autores/
+    │   │               ├── form.html
+    │   │               └── confirmacao.html
+    │   └── test/
+    │       └── java/
+    │           └── br/com/biblioteca/biblioteca/
+    │               └── BibliotecaApplicationTests.java
+    ├── mvnw
+    ├── mvnw.cmd
+    └── pom.xml
 
 
 # Fluxo da Arquitetura MVC
 
-Requisição GET: O usuário acessa /livros/novo. O LivroController instancia um objeto Livro e encaminha a view formulario-cadastro.html.
+Acesso: O usuário aciona GET /autores/novo.
 
-Preenchimento do Formulário: O formulário Thymeleaf vincula cada input ao atributo do objeto Livro.
+Controller: O AutorController cria new Autor() e adiciona ao Model.
 
-Submissão POST: Ao enviar o formulário, os dados entram na rota /livros/cadastrar. O Spring converte os campos no objeto Java Livro.
+View Form: Renderiza autores/form.html permitindo o preenchimento dos campos.
 
-Renderização de Confirmação: O Controller repassa o objeto preenchido para a página confirmacao-cadastro.html, exibindo o resumo dos dados cadastrados.
+Envio: O formulário submete via POST /autores.
+
+Binding: O Spring associa os campos recebidos aos atributos do objeto Autor.
+
+Confirmação: Renderiza autores/confirmacao.html exibindo os dados processados.
 
 # Como Executar o Projeto
 
@@ -78,27 +83,27 @@ Pré-requisitos
 
 Java 17 ou superior instalado.
 
-Maven instalado (ou utilizar o wrapper da IDE).
-
-Git configurado.
+Maven (ou utilize o wrapper ./mvnw incluso no projeto).
 
 Passo a passo
 
-Clonar o repositório:
+Acesse o diretório do projeto Spring Boot:
 
-git clone https://github.com/seu-usuario/BibliotecaCadastro.git
-cd BibliotecaCadastro
+cd SistemaBiblioteca
 
 
-Executar a aplicação:
+Execute o projeto usando o Maven Wrapper:
 
-Via linha de comando (terminal):
+Linux/macOS:
 
 ./mvnw spring-boot:run
 
 
-Ou executando a classe BibliotecaApplication.java diretamente na sua IDE (IntelliJ IDEA, Eclipse, VS Code).
+Windows:
 
-Acessar a aplicação no navegador:
+mvnw.cmd spring-boot:run
 
-Formuário de Cadastro: http://localhost:8080/livros/novo
+
+Abra o navegador no endereço:
+
+Formulário de Autores: http://localhost:8080/autores/novo
