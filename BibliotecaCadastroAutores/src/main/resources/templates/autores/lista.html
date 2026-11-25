@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Autores cadastrados</title>
+    <style>
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #999; padding: 6px 12px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+<h1>Autores cadastrados</h1>
+
+<p><a th:href="@{/autores/novo}">Cadastrar novo autor</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Nacionalidade</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="autor : ${autores}">
+        <td th:text="${autor.id}"></td>
+        <td th:text="${autor.nome}"></td>
+        <td th:text="${autor.nacionalidade}"></td>
+        <td>
+            <a th:href="@{/autores/excluir/{id}(id=${autor.id})}"
+               onclick="return confirm('Excluir este autor?');">Excluir</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(autores)}">
+        <td colspan="4">Nenhum autor cadastrado.</td>
+    </tr>
+    </tbody>
+</table>
+<p>Total de autores: <strong th:text="${#lists.size(autores)}">0</strong></p>
+</body>
+</html>
