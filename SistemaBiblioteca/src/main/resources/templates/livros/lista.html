@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Livros</title>
+    <style>
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #aaa; padding: 6px 12px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+<h1>Livros cadastrados</h1>
+
+<p><a th:href="@{/livros/novo}">Cadastrar novo livro</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>ISBN</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="livro : ${livros}">
+        <td th:text="${livro.id}"></td>
+        <td th:text="${livro.titulo}"></td>
+        <td th:text="${livro.autor}"></td>
+        <td th:text="${livro.isbn}"></td>
+        <td>
+            <a th:href="@{/livros/editar/{id}(id=${livro.id})}">Editar</a> |
+            <a th:href="@{/livros/excluir/{id}(id=${livro.id})}"
+               onclick="return confirm('Tem certeza que deseja excluir este livro?');">Excluir</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(livros)}">
+        <td colspan="5">Nenhum livro cadastrado.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
