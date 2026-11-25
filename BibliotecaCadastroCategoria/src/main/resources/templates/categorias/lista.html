@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorias cadastradas</title>
+    <style>
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #999; padding: 6px 12px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+<h1>Categorias cadastradas</h1>
+
+<p><a th:href="@{/categorias/novo}">Cadastrar nova categoria</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="categoria : ${categorias}">
+        <td th:text="${categoria.id}"></td>
+        <td th:text="${categoria.nome}"></td>
+        <td th:text="${categoria.descricao}"></td>
+        <td>
+            <a th:href="@{/categorias/excluir/{id}(id=${categoria.id})}"
+               onclick="return confirm('Excluir esta categoria?');">Excluir</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(categorias)}">
+        <td colspan="4">Nenhuma categoria cadastrada.</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>Total de categorias: <strong th:text="${#lists.size(categorias)}">0</strong></p>
+</body>
+</html>
